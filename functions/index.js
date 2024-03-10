@@ -1,8 +1,8 @@
 //load environmental variables from .env
-require('dotenv').config()
+require('dotenv').config();
 
-const firebaseAdmin = require('firebase-admin');
-const functions = require('firebase-functions');
+import { admin } from 'firebase-admin';
+import { functions}  from 'firebase-functions';
 
 const firebaseConfig =
 {
@@ -15,9 +15,9 @@ const firebaseConfig =
     measurementId: process.env.FB_MEASUREMENT_ID
 };
 
-firebaseAdmin.initializeApp
+admin.initializeApp
 ({
-    credential: firebaseAdmin.credential.cert
+    credential: admin.credential.cert
     ({
         projectId: process.env.FB_PROJECT_ID,
         clientEmail: process.env.FB_CLIENT_EMAIL,
@@ -25,24 +25,6 @@ firebaseAdmin.initializeApp
     }),
     databaseURL: process.env.FB_DATABASE_URL
 });
-
-//firebaseApp = firebase.initializeApp(firebaseConfig);
-
-/*sync function getFirestore()
-{
-    const firestoreCon  = await firebaseAdmin.firestore();
-
-    const writeResult = firestoreCon.collection('sample').doc('sample_doc').get()
-    .then(doc => {
-        if (!doc.exists) { console.log('No such document!'); }
-        else {return doc.data();}
-    })
-    .catch(err => {
-        console.log('Error getting document', err);
-    });
-    
-    return writeResult;
-}*/
 
 const express = require('express');
 //const updateDatabase = require("./database");

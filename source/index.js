@@ -1,5 +1,7 @@
+//this file (src/index.js) is the entry point for webpack
+
 import $ from 'jquery';
-import changeColor from '../color.js';
+import changeColor from "./color.js";
 
 //set onclick event handler for the color-changing button
 //set it through document, since the button doesn't exist yet
