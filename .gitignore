@@ -1,6 +1,8 @@
 node_modules
 *.json
 *firebase*
+.github
 *.log
 *.rules
+*.env
 *LICENSE*
