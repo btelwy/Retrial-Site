@@ -19,4 +19,4 @@ function changeColor(event)
     }
 }
 
-module.exports = changeColor;
+export default changeColor;

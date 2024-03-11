@@ -1,8 +1,8 @@
-import _ from 'mysql';
+import mySQL from 'mysql';
 
 function updateDatabase(ip)
 {
-    var con = mysql.createConnection(
+    var con = mySQL.createConnection(
     {
         host: "localhost",
         port: 3306,
@@ -19,31 +19,39 @@ function updateDatabase(ip)
 
     //mySQL DATETIME format uses YYYY-MM-DD hh:mm:ss
     var date = new Date();
+    //so convert the date object to that type format
+    var datetime = convertDate(date);
+
+    query = `INSERT INTO Users (ip, time) VALUES ("${ip}", "${datetime}")`;
+    executeQuery(con, query);
+}
+
+function convertDate(date)
+{
+    //the year value is the only part that doesn't need to be changed
 
     var month = date.getMonth().toString();
-    if (month.length < 2)
-        month = "0" + month;
+    month = formatDateValue(month);
 
     var day = date.getDate().toString();
-    if (day.length < 2)
-        day = "0" + day;
+    day = formatDateValue(day);
 
     var hour = date.getHours().toString();
-    if (hour.length < 2)
-        hour = "0" + hour;
+    hour = formatDateValue(hour);
 
     var minute = date.getMinutes().toString();
-    if (minute.length < 2)
-        minute = "0" + minute;
+    minute = formatDateValue(minute);
 
     var second = date.getSeconds().toString();
-    if (second.length < 2)
-        second = "0" + second;
+    second = formatDateValue(second);
 
-    var timedate = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}:${second}`;
+    return `${date.getFullYear()}-${month}-${day} ${hour}:${minute}:${second}`;
+}
 
-    query = `INSERT INTO Users (ip, time) VALUES ("${ip}", "${timedate}")`;
-    executeQuery(con, query);
+function formatDateValue(val)
+{
+    if (val.length < 2)
+        return "0" + val;
 }
 
 function executeQuery(connection, query)

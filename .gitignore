@@ -5,5 +5,8 @@ node_modules
 *.log
 *.rules
 *.env
+*.vscode
 *LICENSE*
+extensions
+*.url
 *config*

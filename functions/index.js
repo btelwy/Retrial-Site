@@ -1,9 +1,11 @@
-//load environmental variables from .env
-require('dotenv').config();
+//load environmental variables from .env file
+import dotenv from 'dotenv';
+dotenv.config();
 
-import { admin } from 'firebase-admin';
-import { functions}  from 'firebase-functions';
+import admin from 'firebase-admin';
+import functions from 'firebase-functions';
 
+//information that may or may not be needed
 const firebaseConfig =
 {
     apiKey: process.env.FB_API_KEY,
@@ -29,26 +31,11 @@ admin.initializeApp
 const express = require('express');
 //const updateDatabase = require("./database");
 
-//const host = "127.0.0.1";
-//const port = process.env.port || 8000;
-
 const app = express();
 app.use(express.json());
 
-app.use(function (request, response, next) {
-    // Website you wish to allow to connect
-    /*response.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    response.setHeader('Access-Control-Allow-Credentials', true);*/
-
+app.use(function (request, response, next) 
+{
     response.send("Hello!");
 
     // Pass to next layer of middleware
