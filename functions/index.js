@@ -1,21 +1,14 @@
+express = require('express');
+const { scrape } = require('./webscrape.js');
+admin = require('firebase-admin');
+functions = require('firebase-functions');
+
 //load environmental variables from .env file
-import dotenv from 'dotenv';
+dotenv = require('dotenv');
 dotenv.config();
 
-import admin from 'firebase-admin';
-import functions from 'firebase-functions';
-
-//information that may or may not be needed
-const firebaseConfig =
-{
-    apiKey: process.env.FB_API_KEY,
-    authDomain: process.env.FB_AUTH_DOMAIN,
-    projectId: process.env.FB_PROJECT_ID,
-    storageBucket: process.env.FB_STORAGE_BUCKET,
-    messagingSenderId: process.env.FB_MESSAGING_SENDER_ID,
-    appId: process.env.FB_APP_ID,
-    measurementId: process.env.FB_MEASUREMENT_ID
-};
+let app = express();
+const cors = require("cors");
 
 admin.initializeApp
 ({
@@ -28,27 +21,23 @@ admin.initializeApp
     databaseURL: process.env.FB_DATABASE_URL
 });
 
-const express = require('express');
-//const updateDatabase = require("./database");
 
-const app = express();
-app.use(express.json());
+app.use((request, response, next) => {
+    response.append('Access-Control-Allow-Origin', '*');
+    response.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+    response.append('Access-Control-Allow-Headers', '*');
 
-app.use(function (request, response, next) 
-{
-    response.send("Hello!");
-
-    // Pass to next layer of middleware
+    cors({ origin: true });
+    
     next();
 });
 
-app.post('/', (request, response) => {
-    const ip = request.body.ip;
-    //updateDatabase(ip);
+app.get("/callbroccheddar", async (request, response) => {
+    const baseUrl = "https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?";
+    const url = "type=08&meal=1";
+
+    let data = await scrape(baseUrl + url);
+    response.status(200).send(data);
 });
 
-//const server = app.listen(port, host, () => {
-//    console.log(`Server is running on http://${host}:${port}`);
-//});
-
-exports.test = functions.https.onRequest(app);
+exports.callbroccheddar = functions.https.onRequest(app);

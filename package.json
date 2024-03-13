@@ -1,0 +1,15 @@
+{
+  "name": "personal-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "source/scripts/index.js",
+  "scripts": {
+    "serve": "firebase serve",
+    "emulate": "firebase emulators:start"
+  },
+  "author": "AWD",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}
