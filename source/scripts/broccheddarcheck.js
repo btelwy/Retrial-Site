@@ -11,31 +11,31 @@
 //once site is ready
 //$.when($.ready).then(getIP);
 
-//http://127.0.0.1:5001/alrest/us-central1/callbroccheddar
-var broccoliCheddarCheck = async () => {
+
+async function broccoliCheddarCheck() {
     try {
-        var response = await fetch("/callbroccheddar", 
+        var data = await fetch("/callbroccheddar", 
         {
             method: "GET",
             headers: {
-                "Accept": "*"
+                "Cache-Control": "max-age=20",
+                "Accept": "application/json"
             }
         });
 
-        if (!response.ok)
-            throw("response is not okay");
-        text = await response.text();
+        console.log(data);
 
-        console.log(text);
-
-        if (text.indexOf("Tomato Basil") != -1)
+        if (data.indexOf("Tomato Basil") != -1)
+        {
             console.log("yay :)");
+            console.log(data);
+        }
+
         else
             console.log("aww :(");
     }
-    catch 
-    {
-        console.error(error);
+    catch(error) {
+        throw(new Error("Caught an error"));
     }
 }
 

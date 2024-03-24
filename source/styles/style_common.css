@@ -1,0 +1,46 @@
+html {
+    min-height: 100%;
+    overflow-x: hidden;
+    background: repeating-linear-gradient(to top left, rgb(242, 231, 128), rgb(235, 228, 188));
+    font-family: "Franklin Gothic", "Times New Roman", sans-serif;
+    font-style: normal;
+    font-weight: 100;
+    color:black;
+    line-height: 1;
+}
+h1 {
+    position: relative;
+}
+button {
+    position: absolute;
+    border: 2px solid black;
+    color: black;
+    background-color: beige;
+    background-image: none;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 32px;
+    margin: 4px 2px;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+    box-shadow: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color:floralwhite;
+    background-image: none;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.19);
+}
+button:active {
+    transition-timing-function: ease-in-out;
+    background: linear-gradient(to bottom right, rgb(234, 205, 151), floralwhite);
+}
+#center-flex {
+    display: flex;
+    position: relative;
+    top: 25%;
+    height: auto;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}

@@ -3,10 +3,12 @@ const axios = require("axios");
 //where config contains at least baseURL, url, and method
 exports.scrape = async function scrape(url)
 {
-    try {
-        return (await axios.get(url));
+    const config = {
+        headers: {
+            'Content-Type': 'text/html'
+        }
     }
-    catch {
-        throw("Something went wrong in scraping.");
-    }
+
+    var response = await axios.get(url, config);
+    return response.data;
 }

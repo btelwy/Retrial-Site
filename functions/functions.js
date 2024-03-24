@@ -26,6 +26,7 @@ app.use((request, response, next) => {
     response.append('Access-Control-Allow-Origin', '*');
     response.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
     response.append('Access-Control-Allow-Headers', '*');
+    response.append("Cache-Control", "public, max-age=20, s-maxage=600");
 
     cors({ origin: true });
     
