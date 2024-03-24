@@ -28,17 +28,22 @@ app.use((request, response, next) => {
     response.append('Access-Control-Allow-Headers', '*');
     response.append("Cache-Control", "public, max-age=20, s-maxage=600");
 
-    cors({ origin: true });
+    cors({origin: true});
     
     next();
 });
 
 app.get("/callbroccheddar", async (request, response) => {
-    const baseUrl = "https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?";
-    const url = "type=08&meal=1";
+    console.log("Function request received.");
 
-    let data = await scrape(baseUrl + url);
-    response.status(200).send(data);
+    const baseUrl = "https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?";
+    const quincyURL = "type=08&meal=1";
+
+    //returns response in HTML format
+    let html = await scrape(baseUrl + quincyURL);
+
+    console.log("Function request completed, sending data.");
+    response.status(200).send(html);
 });
 
 exports.callbroccheddar = functions.https.onRequest(app);

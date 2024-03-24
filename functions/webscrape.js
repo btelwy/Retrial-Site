@@ -1,14 +1,15 @@
-const axios = require("axios");
-
-//where config contains at least baseURL, url, and method
 exports.scrape = async function scrape(url)
 {
-    const config = {
+    //where config contains at least baseURL, url, and method
+    const options = {
+        method: "GET",
         headers: {
-            'Content-Type': 'text/html'
+            "Content-Type": "text/html"
         }
-    }
+    };
 
-    var response = await axios.get(url, config);
-    return response.data;
+    var response = await fetch(url, options);
+    let html = await response.text();
+
+    return html;
 }

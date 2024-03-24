@@ -1,42 +1,30 @@
-//const $ = require('jquery');
-//const changeColor = require("./color.js");
-
-//set onclick event handler for the color-changing button
-//set it through document, since the button doesn't exist yet
-//and in the event handler check for #changeColor
-//document.addEventListener("click", changeColor);
-
-//const { error } = require("jquery");
-
-//once site is ready
-//$.when($.ready).then(getIP);
-
-
 async function broccoliCheddarCheck() {
     try {
-        var data = await fetch("/callbroccheddar", 
+        const options =
         {
             method: "GET",
             headers: {
                 "Cache-Control": "max-age=20",
-                "Accept": "application/json"
+                "Accept": "text/html"
             }
-        });
-
-        console.log(data);
-
-        if (data.indexOf("Tomato Basil") != -1)
-        {
-            console.log("yay :)");
-            console.log(data);
         }
 
+        //retrieves output of function, which is in HTML format
+        let data = await fetch("/callbroccheddar", options);
+        let html = await data.text();
+        console.log(html);
+
+        if (html.indexOf("Tomato Basil") != -1)
+            console.log("yay :)");
         else
             console.log("aww :(");
     }
-    catch(error) {
-        throw(new Error("Caught an error"));
+    //Catch errors
+    catch(error) 
+    {
+        console.log(error);
     }
 }
 
-broccoliCheddarCheck();
+//run check once page is loaded
+document.addEventListener("DOMContentLoaded", broccoliCheddarCheck);
